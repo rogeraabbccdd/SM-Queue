@@ -96,6 +96,41 @@ methodmap Queue < Handle {
 		return cellCount;
 	}
 
+	// Returns the index for the first occurrence of the provided value.
+	//
+	// @param item        Value to search.
+	// @return              Value index, -1 will be returned if value cannot be located.
+	public int FindIndex(any item) {
+		return FindValueInArray(this, item);
+	}
+
+	// Removes an array index, shifting the entire array down from that position on.
+	//
+	// @param index        Index to remove.
+	public void RemoveIndex(int index) {
+		RemoveFromArray(this, index);
+	}
+
+	// Removes all provided value from index.
+	//
+	// @param item        Value to remove.
+	public void RemoveAllItems(any item) {
+		bool finished = false
+		while (!finished) {
+			int index = FindValueInArray(this, item);
+			if (index > -1) RemoveFromArray(this, index);
+			else finished = true;
+		}
+	}
+
+	// Removes first index matches provided value from index.
+	//
+	// @param item        Value to remove.
+	public void RemoveFirstItem(any item) {
+		int index = FindValueInArray(this, item);
+		if (index > -1) RemoveFromArray(this, index);
+	}
+
 	// Returns true if the queue is empty, false otherwise.
 	property bool Empty {
 		public get() { return !GetArraySize(this); }
